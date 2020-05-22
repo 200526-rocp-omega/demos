@@ -8,6 +8,9 @@ A collection of the demos/notes for the Revature Online Certification Program on
 * [Hacker Rank](https://www.hackerrank.com/)
   * Good source of practice. Use it often for practice.
   * We will hold a [contest](https://www.hackerrank.com/java-practice-rocp) within the batch to practice Java
+  * There will also be [another contest](https://www.hackerrank.com/battle-of-the-batches)
+    *  This will be a competition between our batch and another
+    * This will be a real challenge
 
 ## Environment Setup
 * [github](https://github.com)
