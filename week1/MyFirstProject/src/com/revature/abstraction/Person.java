@@ -4,7 +4,7 @@ package com.revature.abstraction;
 // prevents us from instantiating this class
 // We will never be allowed to use "new Person()"
 // The purpose of abstract classes is to subclass them
-public abstract class Person {
+public abstract class Person implements Addressable {
 	private int age;
 	private String name;
 	
@@ -49,5 +49,5 @@ public abstract class Person {
 	// It is only allowed to be used in interfaces or abstract classes
 	// Abstract methods DO NOT have a method body
 	// They instead just end with a semicolon
-	public abstract void speak();
+//	public abstract void speak();
 }

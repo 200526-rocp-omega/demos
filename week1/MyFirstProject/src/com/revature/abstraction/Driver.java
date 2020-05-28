@@ -21,8 +21,9 @@ public class Driver {
 		// people[0] = s;
 		// people[1] = e;
 		
-		for(Person p : people) {
+		for(Addressable p : people) {
 			p.speak();
+			p.speak2();
 		}
 	}
 
