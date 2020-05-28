@@ -19,6 +19,17 @@ public class Student extends Person {
 		// This empty String will be the initial value for major instead of null
 	}
 	
+	public Student(String major) {
+		super();
+		this.major = major;
+	}
+	
+	public Student(int age, String name, String major) {
+		this(major); // This invokes the Constructor above
+		setAge(age);
+		setName(name);
+	}
+	
 	public String getMajor() {
 		return major;
 	}
