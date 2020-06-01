@@ -1,9 +1,11 @@
 package com.revature.collections;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
@@ -79,6 +81,38 @@ public class Driver {
 		}
 		
 		System.out.println(myQueue.size());
+		
+		
+		Map<String, Integer> frequencyMap = new HashMap<>();
+		// The keys in Maps are unique
+		
+		// Populating the map
+		for(String name : names) {
+			if(frequencyMap.containsKey(name)) {
+				// The frequencyMap already contains the count for this name
+				// So we want to increase that count by 1
+				int currentCount = frequencyMap.get(name); // Obtain the current count
+				frequencyMap.put(name, currentCount + 1); // Replace the count with 1 higher value
+			} else {
+				// The frequencyMap has yet to count this particular name
+				frequencyMap.put(name, 1); // Track the name with a count of 1 if we haven't seen it before
+			}
+		}
+		
+		System.out.println(frequencyMap);
+		
+		// We have 2 methods: keySet() and entrySet() which returns a Set of the keys or entries
+		// that we can use to iterate over
+		for(Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
+			System.out.println(entry.getKey() + " : " + entry.getValue());
+		}
+		
+		// The below for loop does the same thing as above, but is slightly less efficient
+//		for(String key : frequencyMap.keySet()) {
+//			Integer value = frequencyMap.get(key);
+//			
+//			// Other steps below
+//		}
 	}
 
 }
