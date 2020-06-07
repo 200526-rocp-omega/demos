@@ -4,11 +4,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * This class is intended to act as a Utility class to provide helper methods
+ * regarding obtaining connections to our database.
+ * 
+ * We accomplish that by using the provided interface DriverManager with it's getConnection
+ * method.
+ * 
+ * It requires 3 parameters: the connection string, the username, and the password
+ * 
+ * There are also a few Exceptions that could occur, so we provide some exception handling for
+ * those cases.
+ */
 public class ConnectionUtil {
 
 	private static Connection conn = null;
 	
 	// Private constructor PREVENTS us from ever instantiating this class
+	// This is fine, since our helper methods are all static, and do not need the instance
 	private ConnectionUtil() {
 		super();
 	}
