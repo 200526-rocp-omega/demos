@@ -2,8 +2,11 @@ package com.revature.services;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.revature.dao.IUserDAO;
 import com.revature.dao.UserDAO;
+import com.revature.exceptions.NotLoggedInException;
 import com.revature.models.User;
 import com.revature.templates.LoginTemplate;
 
@@ -66,5 +69,14 @@ public class UserService {
 		
 		// Username was correct, but password was not
 		return null;
+	}
+	
+	public void logout(HttpSession session) {
+		// They were never logged in to begin with
+		if(session == null || session.getAttribute("currentUser") == null) {
+			throw new NotLoggedInException("User must be logged in, in order to logout.");
+		}
+		
+		session.invalidate();
 	}
 }

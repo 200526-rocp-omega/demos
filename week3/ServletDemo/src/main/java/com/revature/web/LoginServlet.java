@@ -17,8 +17,8 @@ import com.revature.templates.LoginTemplate;
 
 public class LoginServlet extends HttpServlet {
 	
-	private ObjectMapper om = new ObjectMapper();
-	private UserService service = new UserService();
+	private static final ObjectMapper om = new ObjectMapper();
+	private static final UserService service = new UserService();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -30,6 +30,18 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		
+		User current = (User) session.getAttribute("currentUser");
+		
+		// Already logged in
+		if(current != null) {
+			
+			res.setStatus(400);
+			res.getWriter().println("You are already logged in as user " + current.getUsername());
+			return;
+		}
 
 		BufferedReader reader = req.getReader();
 		
@@ -64,8 +76,6 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		// Login successful
-		
-		HttpSession session = req.getSession();
 		
 		session.setAttribute("currentUser", u);
 		

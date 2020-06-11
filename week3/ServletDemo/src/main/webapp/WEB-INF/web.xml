@@ -5,6 +5,11 @@
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   
+  <context-param>
+  	<param-name>ContextParam</param-name>
+  	<param-value>AllServlets</param-value>
+  </context-param>
+
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
   	<servlet-class>com.revature.web.LoginServlet</servlet-class>
@@ -12,5 +17,19 @@
   <servlet-mapping>
   	<servlet-name>LoginServlet</servlet-name>
   	<url-pattern>/login</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+  	<servlet-name>FrontController</servlet-name>
+  	<servlet-class>com.revature.web.FrontController</servlet-class>
+  	<init-param>
+  		<param-name>ConfigParam</param-name>
+  		<param-value>FrontControllerOnly</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FrontController</servlet-name>
+  	<url-pattern>/*</url-pattern>
   </servlet-mapping>
 </web-app>
