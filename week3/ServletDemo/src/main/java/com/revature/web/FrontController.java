@@ -1,7 +1,6 @@
 package com.revature.web;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.authorization.AuthService;
 import com.revature.controllers.UserController;
+import com.revature.exceptions.AuthorizationException;
 import com.revature.exceptions.NotLoggedInException;
 import com.revature.models.User;
 import com.revature.templates.MessageTemplate;
@@ -36,18 +37,22 @@ public class FrontController extends HttpServlet {
 				if(portions.length == 2) {
 					// Delegate to a Controller method to handle obtaining a User by ID
 					int id = Integer.parseInt(portions[1]);
-					User u = userController.findUserById(req.getSession(false), id);
+					AuthService.guard(req.getSession(false), id, "Employee", "Admin");
+					User u = userController.findUserById(id);
 					res.setStatus(200);
 					res.getWriter().println(om.writeValueAsString(u));
 				} else {
 					// Delegate to a Controller method to handle obtaining ALL Users
-					List<User> all = userController.findAllUsers(req.getSession(false));
+					AuthService.guard(req.getSession(false), "Employee", "Admin");
+					List<User> all = userController.findAllUsers();
 					res.setStatus(200);
 					res.getWriter().println(om.writeValueAsString(all));
 				}
 				break;
+			case "accounts":
+				break;
 			}
-		} catch(NotLoggedInException e) {
+		} catch(AuthorizationException e) {
 			res.setStatus(401);
 			MessageTemplate message = new MessageTemplate("The incoming token has expired");
 			

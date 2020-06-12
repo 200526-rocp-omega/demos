@@ -1,6 +1,6 @@
 package com.revature.exceptions;
 
-public class NotLoggedInException extends RuntimeException {
+public class NotLoggedInException extends AuthorizationException {
 	private static final long serialVersionUID = 5659070462446728638L;
 
 	public NotLoggedInException() {

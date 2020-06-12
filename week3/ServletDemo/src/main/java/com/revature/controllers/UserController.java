@@ -22,34 +22,11 @@ public class UserController {
 		return true;
 	}
 	
-	public User findUserById(HttpSession session, int id) {
-		User currentUser = session == null ? null : (User) session.getAttribute("currentUser");
-		if(session == null || currentUser == null) {
-			throw new NotLoggedInException();
-		}
-		
-		
-		String role = currentUser.getRole().getRole();
-		if(!role.equals("Employee") && !role.equals("Admin") && currentUser.getId() != id) {
-			// The User does not have permission
-			throw new NotLoggedInException();
-		}
-		
+	public User findUserById(int id) {
 		return userService.findById(id);
 	}
 	
-	public List<User> findAllUsers(HttpSession session) {
-		User currentUser = session == null ? null : (User) session.getAttribute("currentUser");
-		if(session == null || currentUser == null) {
-			throw new NotLoggedInException();
-		}
-		
-		String role = currentUser.getRole().getRole();
-		if(!role.equals("Employee") && !role.equals("Admin")) {
-			// The User does not have permission
-			throw new NotLoggedInException();
-		}
-		
+	public List<User> findAllUsers() {		
 		return userService.findAll();
 	}
 }
