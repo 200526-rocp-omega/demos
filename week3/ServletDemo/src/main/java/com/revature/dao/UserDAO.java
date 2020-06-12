@@ -123,7 +123,30 @@ public class UserDAO implements IUserDAO {
 
 	@Override
 	public User findById(int id) {
-		// TODO Auto-generated method stub
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "SELECT * FROM USERS INNER JOIN ROLES ON USERS.role_id = ROLES.id WHERE USERS.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String email = rs.getString("email");
+				int roleId = rs.getInt("role_id");
+				String roleName = rs.getString("role");
+				
+				// And use that data to create a User object accordingly
+				Role role = new Role(roleId, roleName);
+				return new User(id, username, password, firstName, lastName, email, role);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
