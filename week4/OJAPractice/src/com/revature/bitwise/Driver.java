@@ -34,6 +34,8 @@ public class Driver {
 		// 00011111
 		// --------
 		// 10111111
+		int x = 0b10111001 | 0b00011111;
+		
+		System.out.format("%s%n", Integer.toString(x, 2));// Format the result as a binary number
 	}
-
 }
