@@ -25,6 +25,8 @@ public class FrontController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 		throws ServletException, IOException {
 		res.setContentType("application/json");
+		res.setStatus(404);
+		// Prevents non-desired endpoints from being successful
 		final String URI = req.getRequestURI().replace("/ServletDemo", "").replaceFirst("/", "");
 		
 		String[] portions = URI.split("/");
@@ -57,6 +59,11 @@ public class FrontController extends HttpServlet {
 			MessageTemplate message = new MessageTemplate("The incoming token has expired");
 			
 			res.getWriter().println(om.writeValueAsString(message));
+		} catch(NumberFormatException e) {
+			res.setStatus(400);
+			MessageTemplate message = new MessageTemplate("The id provided was not an integer");
+			
+			res.getWriter().println(om.writeValueAsString(message));
 		}
 	}
 
@@ -64,6 +71,8 @@ public class FrontController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 		throws ServletException, IOException {
 		res.setContentType("application/json");
+		res.setStatus(404);
+		// Prevents non-desired endpoints from being successful
 		final String URI = req.getRequestURI().replace("/ServletDemo", "").replaceFirst("/", "");
 		
 		String[] portions = URI.split("/");
@@ -78,6 +87,8 @@ public class FrontController extends HttpServlet {
 					res.setStatus(400);
 					res.getWriter().println("You were not logged in to begin with");
 				}
+				break;
+			case "users":
 				break;
 			}
 		} catch(NotLoggedInException e) {
